@@ -1,0 +1,100 @@
+// Theme colors
+$font-color: #6c757d;
+$primary-color: #293e66 !important;
+$primary-font-color: #ffffff !important;
+$secondary-color: #4D638E !important;
+$secondary-font-color: #ffffff !important;
+$third-palatte-color: #EB8675 !important;
+$third-palatte-font-color: #ffffff !important;
+$border-line-color: #9cb4df;
+
+// Mixins
+@mixin primary() {
+    background-color: $primary-color;
+    color: $primary-font-color;
+}
+
+@mixin secondary() {
+    background-color: $secondary-color;
+    color: $secondary-font-color;
+}
+
+.app-header {
+    .navbar {
+        @include primary;
+    }
+
+    .navbar-text {
+        color: $primary-font-color;
+    }
+
+    .container-fluid {
+        padding: 0 2em;
+        color: #fff
+    }
+}
+
+main {
+    margin-top: 4.5em;
+}
+
+// Spinner
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .spinner-border {
+        color: $primary-color;
+    }
+}
+
+.no-data {
+    color: #888;
+    font-size: 18px;
+    text-align: center;
+    margin-top: 20px;
+  }
+
+/* Customized horizontal scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: $secondary-color;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+
+/* Customized vertical scrollbar */
+::-webkit-scrollbar-vertical {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track-vertical {
+    background-color: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb-vertical {
+    background-color: #888;
+}
+
+::-webkit-scrollbar-thumb-vertical:hover {
+    background-color: #555;
+}

@@ -1,0 +1,24 @@
+<!-- App navbar -->
+<header class="app-header">
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand">AutoInsight</a>
+      <span class="navbar-text">
+        Hello, <span>{{ loggedInUser }}</span>
+      </span>
+    </div>
+  </nav>
+</header>
+<main>
+  <!-- Main content -->
+  <router-outlet></router-outlet>
+</main>
+
+<!-- Spinner -->
+<div class="loading-overlay" *ngIf="isSpinnerVisible">
+  <div class="d-flex justify-content-center">
+    <div class="spinner-border" style="width: 3rem; height: 3rem" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+</div>

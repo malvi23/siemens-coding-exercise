@@ -1,0 +1,92 @@
+@import '../../../../app.component.scss';
+@import '../../vehicle-dashboard.component.scss';
+
+@mixin bg-icon-image($color){
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+}
+
+.model-container {
+    .close-icon-container {
+        position: sticky;
+        float: right;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+        background-color: $secondary-color;
+        transition: background-color .3s, fill .3s;
+        border-radius: 50%;
+        height: 33px;
+        width: 33px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1;
+    }
+
+    .close-icon {
+        color: #ffffff;
+        height: 40px;
+        width: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .header-p {
+        padding: 8px 0
+    }
+
+    .scrollable-content {
+        padding: 10px;
+    }
+
+    .list-group-item {
+        z-index: unset !important;
+        color: $font-color;
+    }
+
+    .horizontal-line {
+        @include horizontal-line($border-line-color);
+        margin-bottom: 10px;
+    }
+
+    .vehicle-types {
+        .btn-sm {
+            margin: 2px;
+            background-color: $third-palatte-color;
+            color: $third-palatte-font-color;
+            border-color: $third-palatte-color;
+            cursor: unset;
+        }
+    }
+
+    .divider {
+        width: 1px;
+        height: 15px;
+        background-color: $secondary-color;
+        margin: 0 5px;
+    }
+
+    .model-content {
+        @include flex-center
+    }
+
+    .accordion-button {
+        $accordion-icon-color: $secondary-font-color;
+
+        &:focus {
+            @include secondary;
+            box-shadow: unset;
+        }
+
+        &:not(.collapsed) {
+            @include secondary;
+            &::after{
+                @include bg-icon-image(fff);
+            }
+        }
+        &:focus::after {
+            @include bg-icon-image(fff);
+          }
+    }
+}

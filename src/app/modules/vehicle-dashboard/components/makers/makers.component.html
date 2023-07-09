@@ -1,0 +1,58 @@
+<!-- Search section -->
+<app-search
+  [data$]="vehicles$"
+  (filteredItemsEvent)="showFilteredData($event)"
+></app-search>
+
+<!-- Maker list section -->
+<div class="maker-container" *ngIf="vehicles$ | async as vehicles">
+  <div class="row" *ngIf="vehicles.length > 0; else emptyData">
+    <div
+      [ngClass]="{ 'col-sm-12 col-md-7': activeMaker, 'col-12': !activeMaker }"
+    >
+      <cdk-virtual-scroll-viewport
+        [style.height.px]="windowHeight - 154.8"
+        itemSize="15"
+      >
+        <div class="row g-2 mr-10">
+          <div
+            *cdkVirtualFor="let vehicle of vehicles"
+            [ngClass]="{
+              'col-12 col-sm-4 col-md-4': activeMaker,
+              'col-12 col-sm-4 col-md-3': !activeMaker
+            }"
+          >
+            <div
+              class="card"
+              [ngClass]="{ 'card-active': activeMaker == vehicle.Make_ID }"
+              (click)="makerCardClickEvent(vehicle)"
+              title="Click here to show model details"
+            >
+              <div class="card-body">
+                <h5 class="card-title">{{ vehicle.Make_ID }}</h5>
+                <p class="name-container card-text">
+                  {{ vehicle.Make_Name }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </cdk-virtual-scroll-viewport>
+    </div>
+
+    <!-- Model and Vehicle types section -->
+    <app-models
+      [makeName]="activeMakeName"
+      class="col-sm-12 col-md-5 scrollable-container"
+      [vehicleModels$]="vehicleModels$"
+      [vehicleTypes$]="vehicleTypes$"
+      (closeModelContent)="closeModelContent()"
+      *ngIf="activeMaker"
+    ></app-models>
+  </div>
+</div>
+
+<!-- Emplty data template -->
+<ng-template #emptyData>
+  <div class="no-data">No Matching Results</div>
+</ng-template>

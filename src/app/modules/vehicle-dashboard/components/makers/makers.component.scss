@@ -1,0 +1,55 @@
+@import '../../../../app.component.scss';
+
+@mixin common-bg($color, $p1, $p2) {
+    background-image: linear-gradient(to top, $color 0%, rgba(229, 228, 231, .7) $p1, rgba(232, 232, 232, .8) $p2);
+    transition: opacity .3s;
+}
+
+.maker-container {
+    margin: 15px 31px;
+    color: $font-color;
+
+    .card {
+        cursor: pointer;
+        color: $font-color;
+        position: relative;
+        overflow: hidden;
+
+        &:hover {
+            @include common-bg(#eae9ef, 99%, 100%);
+        }
+
+        .card-body{
+            height: 154px;
+        }
+    }
+
+    .card-active {
+        @include common-bg(#d7dadd, 60%, 96%);
+        font-weight: bold;
+        border: 1px solid $secondary-color;
+        box-shadow: 0 2px 8px;
+    }
+
+    .card-footer {
+        background-color: #0dcaf0 !important;
+    }
+
+    .scrollable-container {
+        position: fixed;
+        // position: relative;
+        right: 0;
+        background-color: #fff;
+        overflow: auto;
+        border: 1px solid lightgray;
+        border-radius: 20px;
+    }
+
+    .col-sm-12.scrollable-container {
+        position: unset;
+    }
+
+    .mr-10 {
+        margin-right: 10px;
+    }
+}

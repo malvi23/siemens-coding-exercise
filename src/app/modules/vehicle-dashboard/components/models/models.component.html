@@ -1,0 +1,125 @@
+<div
+  class="model-container"
+  *ngIf="vehicleModels$ | async as vehicles; else loading"
+>
+  <!-- Close icon -->
+  <span class="close-icon-container" (click)="closeModels()">
+    <i class="fas fa-times close-icon"></i>
+  </span>
+
+  <!-- main content -->
+  <div class="scrollable-content">
+    <header class="header-p">
+      <!-- Header -->
+      <h4>{{ makeName }}</h4>
+      <div class="horizontal-line"></div>
+
+      <div class="accordion" id="accordionExample">
+        <!-- Vehicle types list-->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingOne">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseOne"
+              aria-expanded="false"
+              aria-controls="collapseOne"
+            >
+              Vehicle Types
+            </button>
+          </h2>
+          <div
+            id="collapseOne"
+            class="accordion-collapse collapse"
+            aria-labelledby="headingOne"
+          >
+            <div class="accordion-body">
+              <ng-container
+                *ngTemplateOutlet="vehicleTypesAccordion"
+              ></ng-container>
+            </div>
+          </div>
+        </div>
+
+        <!-- Model list -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingTwo">
+            <button
+              class="accordion-button"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseTwo"
+              aria-expanded="false"
+              aria-controls="collapseTwo"
+            >
+              Models&nbsp;<small>({{ vehicles?.length }})</small>
+            </button>
+          </h2>
+          <div
+            id="collapseTwo"
+            class="accordion-collapse collapse show"
+            aria-labelledby="headingTwo"
+          >
+            <div class="accordion-body">
+              <div *ngIf="vehicles.length > 0; else emptyData">
+                <ng-container *ngTemplateOutlet="modelAccordion"></ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+  </div>
+</div>
+
+<!-- Vehicle types accordion item template -->
+<ng-template #vehicleTypesAccordion>
+  <div class="vehicle-types m-2">
+    <button
+      type="button"
+      class="btn btn-primary btn-sm"
+      *ngFor="let vehicle of vehicleTypes$ | async"
+      title="Available vehicle types"
+    >
+      {{ vehicle.VehicleTypeName }}
+    </button>
+  </div>
+</ng-template>
+
+<!-- Models accordion item template -->
+<ng-template #modelAccordion>
+  <div class="list-group">
+      <cdk-virtual-scroll-viewport
+        [style.height.px]="windowHeight - 248"
+        itemSize="15"
+      >
+        <a
+          class="list-group-item list-group-item-action"
+          aria-current="true"
+          *cdkVirtualFor="let vehicle of vehicleModels$ | async"
+        >
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1 model-content">
+              {{ vehicle.Model_ID }} <span class="divider"></span>
+              <small title="Model Name">{{ vehicle.Model_Name }}</small>
+            </h5>
+          </div>
+        </a>
+      </cdk-virtual-scroll-viewport>
+  </div>
+</ng-template>
+
+<!-- Spinner template -->
+<ng-template #loading>
+  <div class="text-center" style="margin-top: 5em">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Emplty data template -->
+<ng-template #emptyData>
+  <div class="no-data">No data found</div>
+</ng-template>

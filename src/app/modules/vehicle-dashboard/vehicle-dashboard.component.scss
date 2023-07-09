@@ -1,0 +1,36 @@
+@import '../../app.component.scss';
+
+@mixin horizontal-line($color) {
+    border: none;
+    border-top: 1px solid $border-line-color;
+    margin: 0 17px;
+}
+
+@mixin flex-center {
+    display: flex;
+    align-items: center
+}
+
+.vehicle-dashboard {
+    .navbar {
+        margin: 0 15px;
+    }
+
+    .horizontal-line {
+        @include horizontal-line($border-line-color)
+    }
+
+    .nav {
+        margin: 0 2em;
+    }
+
+    .breadcrumb {
+        .breadcrumb-item {
+            @include flex-center;
+        }
+
+        .first-item {
+            font-size: 21px
+        }
+    }
+}

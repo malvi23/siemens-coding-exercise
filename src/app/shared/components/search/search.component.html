@@ -1,0 +1,12 @@
+<div class="search-container">
+  <!-- Search input -->
+    <input
+      class="form-control mr-sm-2"
+      type="search"
+      [(ngModel)]="searchTerm"
+      (input)="filterItems()"
+      placeholder="Search..."
+      aria-label="Search"
+      style="width: 34%"
+    />
+</div>
