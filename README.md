@@ -1,1 +1,1 @@
-# malvi-coding-exercise
+# siemens-coding-exercise
