@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Observable, Subscription, map } from 'rxjs';
 import { MakerData } from 'src/app/core/interfaces/vehicle-interface';
-import * as _ from 'lodash';
+import {filter, includes, debounce } from 'lodash';
+
 
 @Component({
   selector: 'app-search',
@@ -15,6 +16,7 @@ export class SearchComponent {
   filteredItems: any[] = [];
   searchTerm: string = '';
   dataSubscription!:Subscription;
+  debouncedFunction = debounce(this.filterItems, 300);
 
   ngOnInit() {
     // Subscribe to the data on which search filter applied
@@ -26,12 +28,12 @@ export class SearchComponent {
   // Method to emit filtered data based on search value
   filterItems(): void {
     if (this.searchTerm) {
-      this.filteredItems = _.filter(this.data, (item: any) => {
+      this.filteredItems = filter(this.data, (item: any) => {
         return (
-          _.includes(
+          includes(
             item.Make_Name.toLowerCase(),
             this.searchTerm.toLowerCase()
-          ) || _.includes(item.Make_ID.toString(), this.searchTerm)
+          ) || includes(item.Make_ID.toString(), this.searchTerm)
         );
       });
     } else {

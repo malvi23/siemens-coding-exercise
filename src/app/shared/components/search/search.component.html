@@ -4,7 +4,7 @@
       class="form-control mr-sm-2"
       type="search"
       [(ngModel)]="searchTerm"
-      (input)="filterItems()"
+      (input)="debouncedFunction()"
       placeholder="Search..."
       aria-label="Search"
       style="width: 34%"

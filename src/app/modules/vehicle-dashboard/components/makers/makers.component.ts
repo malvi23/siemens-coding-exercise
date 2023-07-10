@@ -1,15 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { VehicleService } from '../../services/vehicle.service';
-import { Observable, Subscription, map, of, shareReplay } from 'rxjs';
+import { Observable, Subject, Subscription, map, of, shareReplay } from 'rxjs';
 import {
   MakerData,
   ModelData,
   VehicleMakerResponse,
-  VehicleModelResponse,
   VehicleTypeData,
-  VehicleTypeResponse,
 } from 'src/app/core/interfaces/vehicle-interface';
-import * as _ from 'lodash';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-makers',
@@ -24,6 +22,7 @@ export class MakersComponent implements OnInit, OnDestroy {
   activeMakeName: string | undefined;
   windowHeight: number = window.innerHeight;
   allSubscription: Subscription[] = [];
+  private unsubscribe$ = new Subject<void>();
 
   constructor(private _vehicleService: VehicleService) {}
   ngOnInit(): void {
@@ -44,11 +43,14 @@ export class MakersComponent implements OnInit, OnDestroy {
     this.allSubscription.forEach((subscription: Subscription) => {
       subscription.unsubscribe();
     });
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
   // Method to get all vehicle makers from service
   getAllVehicleMakers() {
     this.vehicles$ = this._vehicleService.getAllVehicleMakers().pipe(
+      takeUntil(this.unsubscribe$),
       map((response: VehicleMakerResponse) => {
         return response.Results;
       }),
@@ -60,32 +62,6 @@ export class MakersComponent implements OnInit, OnDestroy {
   makerCardClickEvent(Vehicle: MakerData) {
     this.activeMaker = Vehicle.Make_ID;
     this.activeMakeName = Vehicle.Make_Name;
-    this.getAllVehicleModelsByMakeID(Vehicle.Make_ID);
-    this.getAllVehicleTypesByMakeID(Vehicle.Make_ID);
-  }
-
-  // Method to get all vehicle models from service for a specific Make_ID
-  getAllVehicleModelsByMakeID(Make_ID: number) {
-    this.vehicleModels$ = this._vehicleService
-      .getAllVehicleModelsByMakeID(Make_ID)
-      .pipe(
-        map((response: VehicleModelResponse) => {
-          return response.Results;
-        }),
-        shareReplay()
-      );
-  }
-
-  // Method to get all vehicle types from service for a specific Make_ID
-  getAllVehicleTypesByMakeID(Make_ID: number) {
-    this.vehicleTypes$ = this._vehicleService
-      .getAllVehicleTypesByMakeID(Make_ID)
-      .pipe(
-        map((response: VehicleTypeResponse) => {
-          return response.Results;
-        })
-      );
-    return this.vehicleTypes$;
   }
 
   // Close vehicle details content (Models and Vehicle types) on close icon click

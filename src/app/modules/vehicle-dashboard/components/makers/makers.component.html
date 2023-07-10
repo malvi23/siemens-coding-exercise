@@ -42,10 +42,8 @@
 
     <!-- Model and Vehicle types section -->
     <app-models
-      [makeName]="activeMakeName"
+      [makeName]="activeMakeName" [makeId]="activeMaker"
       class="col-sm-12 col-md-5 scrollable-container"
-      [vehicleModels$]="vehicleModels$"
-      [vehicleTypes$]="vehicleTypes$"
       (closeModelContent)="closeModelContent()"
       *ngIf="activeMaker"
     ></app-models>

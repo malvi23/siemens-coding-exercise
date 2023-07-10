@@ -6,7 +6,6 @@ import {
   VehicleModelResponse,
   VehicleTypeResponse,
 } from 'src/app/core/interfaces/vehicle-interface';
-import * as _ from 'lodash';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 
 import { MakersComponent } from './makers.component';

@@ -8,7 +8,7 @@ import {
   VehicleModelResponse,
   VehicleTypeResponse,
 } from 'src/app/core/interfaces/vehicle-interface';
-import * as _ from 'lodash';
+import {find} from 'lodash';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +16,7 @@ import * as _ from 'lodash';
 export class VehicleService {
   API_URL = environemnt.API_BASE_URL;
   API_URL_CATEGORY = CATEGORIES.vehicles;
-  API_OBJECT = _.find(API_LIST, ['category', this.API_URL_CATEGORY]);
+  API_OBJECT = find(API_LIST, ['category', this.API_URL_CATEGORY]);
   VEHICLE_APIS = this.API_OBJECT?.list;
   API_POSTFIX = '?format=json';
 
