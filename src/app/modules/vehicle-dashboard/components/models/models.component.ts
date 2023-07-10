@@ -5,6 +5,7 @@ import {
   OnInit,
   Output,
   OnDestroy,
+  SimpleChanges,
 } from '@angular/core';
 import {
   Observable,
@@ -49,6 +50,13 @@ export class ModelsComponent implements OnInit, OnDestroy {
       )
     );
     if (this.makeId) {
+      this.getAllVehicleModelsByMakeID(this.makeId);
+      this.getAllVehicleTypesByMakeID(this.makeId);
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges){
+    if (changes['makeId'] && this.makeId) {
       this.getAllVehicleModelsByMakeID(this.makeId);
       this.getAllVehicleTypesByMakeID(this.makeId);
     }
