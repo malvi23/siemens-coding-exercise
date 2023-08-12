@@ -8,7 +8,7 @@ import {
   VehicleModelResponse,
   VehicleTypeResponse,
 } from 'src/app/core/interfaces/vehicle-interface';
-import {find} from 'lodash';
+import { find } from 'lodash';
 
 @Injectable({
   providedIn: 'root',
@@ -29,7 +29,8 @@ export class VehicleService {
     this.updateCurrentWindowSize();
   }
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
   // API provides all the Vehicle Makers
   getAllVehicleMakers(): Observable<VehicleMakerResponse> {

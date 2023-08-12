@@ -23,6 +23,6 @@ import { FormsModule } from '@angular/forms';
     VehicleDashboardRoutingModule,
     ScrollingModule,
     FormsModule
-  ]
+  ],
 })
 export class VehicleDashboardModule { }

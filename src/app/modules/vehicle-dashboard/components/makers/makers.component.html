@@ -16,7 +16,7 @@
       >
         <div class="row g-2 mr-10">
           <div
-            *cdkVirtualFor="let vehicle of vehicles"
+            *cdkVirtualFor="let vehicle of vehicles; trackBy: trackByFn"
             [ngClass]="{
               'col-12 col-sm-4 col-md-4': activeMaker,
               'col-12 col-sm-4 col-md-3': !activeMaker

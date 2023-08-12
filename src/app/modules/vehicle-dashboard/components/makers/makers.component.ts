@@ -1,4 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { VehicleService } from '../../services/vehicle.service';
 import { Observable, Subject, Subscription, map, of, shareReplay } from 'rxjs';
 import {
@@ -22,7 +28,9 @@ export class MakersComponent implements OnInit, OnDestroy {
   activeMakeName: string | undefined;
   windowHeight: number = window.innerHeight;
   allSubscription: Subscription[] = [];
+  totalMakers: number | undefined;
   private unsubscribe$ = new Subject<void>();
+  @Output() updateTotalEmitter = new EventEmitter<number>();
 
   constructor(private _vehicleService: VehicleService) {}
   ngOnInit(): void {
@@ -47,15 +55,25 @@ export class MakersComponent implements OnInit, OnDestroy {
     this.unsubscribe$.complete();
   }
 
+  trackByFn(index: number, item: any): any {
+    return item.Make_ID;
+  }
+
   // Method to get all vehicle makers from service
   getAllVehicleMakers() {
     this.vehicles$ = this._vehicleService.getAllVehicleMakers().pipe(
       takeUntil(this.unsubscribe$),
       map((response: VehicleMakerResponse) => {
+        this.totalMakers = response.Count;
+        this.updateTotal();
         return response.Results;
       }),
       shareReplay()
     );
+  }
+
+  updateTotal() {
+    this.updateTotalEmitter.emit(this.totalMakers);
   }
 
   // Maker click event to fetch amd display more data (Models and Vehicle types)

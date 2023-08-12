@@ -12,7 +12,7 @@
         class="breadcrumb-item active"
         aria-current="page"
       >
-        <span>Makers</span>
+        <span>Makers ({{totalMakers}})</span>
       </li>
     </ol>
   </nav>
@@ -20,5 +20,5 @@
   <div class="horizontal-line"></div>
 
   <!-- Main content -->
-  <app-makers></app-makers>
+  <app-makers (updateTotalEmitter)="updateTotal($event)"></app-makers>
 </div>
